@@ -36,7 +36,7 @@ The following diagram shows all the steps of the entire process:
   
   - ***Auto ML Model***: AutoML is the process of automating the time-consuming, iterative tasks of machine learning model development. A classification model on bank marketing       [dataset](https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv) is built using AutoML, and the best model is determined       based on metrics collected (*AUC_weighted*)
   
-  - ***Deploy the best model***: the best performing model, the one with the highest AUC weighted value, is selected for deployment. *Azure Container Instance* or *Azure               Kubernetes Service* can be chosen in this step
+  - ***Deploy the best model***: the goal is to ship a model into production. The best performing model, the one with the highest metric value (*AUC_weighted*), is selected for       deployment. *Azure Container Instance* or *Azure Kubernetes Service* can be chosen in this step
   
   - ***Enable logging***: Application Insights tool allows to detect anomalies, visualize performance and keep track of the deployed model. It can be enabled before or after a         deployment
   
@@ -107,7 +107,143 @@ The following diagram shows all the steps of the entire process:
             steps=[automl_step])
         ```
         After submitting the pipeline run to the experiment, results metrics have been collected and the best model has been retrieved.
+  
+  - ***Deploy the best model***
+    The best model, the output of the above step, has been deployed to ***Azure Container Instance***. *Enable authentication* has been enabled.
 
+  - ***Enable logging***
+    After the model has been deployed, a REST endpoint and a Swagger URI have been generated.
+    
+    Photo
+    
+    ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script 
+    [logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py). The script has been modifyied in order to correctly enable ***Application         Insights***
+    
+    Photo
+    
+    [config.json](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/config.json) file, containing workspace info, has been retrieved and placed in the       same directory of the above script, before running it.
+    
+    ```
+    from azureml.core import Workspace
+    from azureml.core.webservice import Webservice
+
+    # Requires the config to be downloaded first to the current working directory
+    ws = Workspace.from_config()
+
+    # Set with the deployment name
+    name = ""
+
+    # Load existing web service
+    service = Webservice(name=name, workspace=ws)
+    logs = service.get_logs()
+
+    for line in logs.split('\n'):
+        print(line)
+    ```
+    When the execution has been completed, ***Application Insights*** has been set to true
+    
+    Photo
+  
+ - ***Consume model endpoints***
+
+   Endpoints allow other services to interact with deployed models. There are some interesting details to be aware when trying to use HTTP:
+   
+      - ***Swagger***: swagger is a tool that eases the documentation efforts of HTTP APIs. It helps to build, document, and consume RESTful web services. It further explains what         types of HTTP requests that an API can consume, like POST and GET.
+        
+        Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
+        
+        The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger)             containing *swagger.sh* and *serve.py* scripts.
+        
+        Photo
+        
+        Then, *serve.py* and *swagger.sh* have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 80,               respectively.
+        
+        Photo
+        
+        Photo
+        
+      - ***Consume deployed services***: a deployed service can be consumed via an HTTP API. Users can initiate HTTP requestes, for example an input request, usually via an HTTP           POST request. HTTP POST is a request method that is used to submit data. The HTTP GET is another commonly used request method. HTTP GET is used to retrieve information             from a URL. The allowed requests methods and the different URLs exposed by Azure create a bi-directional flow of information.
+        The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accept data and submit responses.
+        
+        The provided script [endpoint.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/endpoint.py) has been executed in order to interact with the         deployed model. It has been modified with the correct *scoring_uri* and *key* retrieved from the "*Consume*" tab of the endpoint:
+        ```
+        import requests
+        import json
+
+        # URL for the web service, should be similar to:
+        # 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
+        scoring_uri = ''
+        # If the service is authenticated, set the key or token
+        key = ''
+
+        # Two sets of data to score, so we get two results back
+        data = {"data":
+                [
+                  {
+                    "age": 17,
+                    "campaign": 1,
+                    "cons.conf.idx": -46.2,
+                    "cons.price.idx": 92.893,
+                    "contact": "cellular",
+                    "day_of_week": "mon",
+                    "default": "no",
+                    "duration": 971,
+                    "education": "university.degree",
+                    "emp.var.rate": -1.8,
+                    "euribor3m": 1.299,
+                    "housing": "yes",
+                    "job": "blue-collar",
+                    "loan": "yes",
+                    "marital": "married",
+                    "month": "may",
+                    "nr.employed": 5099.1,
+                    "pdays": 999,
+                    "poutcome": "failure",
+                    "previous": 1
+                  },
+                  {
+                    "age": 87,
+                    "campaign": 1,
+                    "cons.conf.idx": -46.2,
+                    "cons.price.idx": 92.893,
+                    "contact": "cellular",
+                    "day_of_week": "mon",
+                    "default": "no",
+                    "duration": 471,
+                    "education": "university.degree",
+                    "emp.var.rate": -1.8,
+                    "euribor3m": 1.299,
+                    "housing": "yes",
+                    "job": "blue-collar",
+                    "loan": "yes",
+                    "marital": "married",
+                    "month": "may",
+                    "nr.employed": 5099.1,
+                    "pdays": 999,
+                    "poutcome": "failure",
+                    "previous": 1
+                  },
+              ]
+            }
+        # Convert to JSON string
+        input_data = json.dumps(data)
+        with open("data.json", "w") as _f:
+            _f.write(input_data)
+
+        # Set the content type
+        headers = {'Content-Type': 'application/json'}
+        # If authentication is enabled, set the authorization header
+        headers['Authorization'] = f'Bearer {key}'
+
+        # Make the request and display the response
+        resp = requests.post(scoring_uri, input_data, headers=headers)
+        print(resp.json())
+        ```
+        The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed.
+      
+      - ***Benchmarking***: being able to create a baseline of acceptable performance so that it can be compared to day-to-day behavior
+    
+  
 ## Screen Recording
 *TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
 
