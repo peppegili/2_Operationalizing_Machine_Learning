@@ -1,12 +1,39 @@
-*NOTE:* This file is a template that you can use to create the README for your project. The *TODO* comments below will highlight the information you should be sure to include.
+# Operationalizing Machine Learning
 
+## Overview
+This project is part of the Udacity Azure ML Nanodegree. In this project, will use Azure to configure a cloud-based machine learning production model, deploy it, and consume it. Moreover, we will also create, publish, and consume a pipeline.
 
-# Your Project Title Here
+Both ***Azure ML Studio*** and ***Python SDK*** will be used in this project. The model will be trained using *AutoML* and the best model will be, finally, deployed and consumed through *Azure Container Instance (ACI)* and *REST endpoint* respectively.
 
-*TODO:* Write an overview to your project.
+## Table of Contents
+  - [Overview](#overview)
+  - [Dataset](#dataset)
+  - [Architectural Diagram](#architectural-diagram)
+  - [Key Steps](#key-steps)
+  - [Screen Recording](#screen-recording)
+  - [Standout Suggestions](#standout suggestions)
+
+## Dataset
+In this project a bank marketing [dataset](https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv) is used.
+It contains phone calls from a direct marketing compaign of a Portoguese banking institution.
+
+The dataset has a series of information (age, job, marital, education, etc...) for a total of 32950 observations, 20 features, and a target variable (y)
+with two possible values: yes or no.
+The task is addressed as a classification task and the goal is to predict if a client will subscribe a term deposit (y variable).
 
 ## Architectural Diagram
 *TODO*: Provide an architectual diagram of the project and give an introduction of each step. An architectural diagram is an image that helps visualize the flow of operations from start to finish. In this case, it has to be related to the completed project, with its various stages that are critical to the overall flow. For example, one stage for managing models could be "using Automated ML to determine the best model". 
+
+The following diagram shows all the steps of the entire process:
+![Architectural Diagram](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/architectural_diagram.png)
+
+  - ***Authentication***:
+  - ***Auto ML Model***:
+  - ***Deploy the best model***
+  - ***Enable logging***:
+  - ***Consume model endpoints***:
+  - ***Create and publish a pipeline***:
+  - ***Documentation***:
 
 ## Key Steps
 *TODO*: Write a short discription of the key steps. Remeber to include all the screenshots required to demonstrate key steps. 
