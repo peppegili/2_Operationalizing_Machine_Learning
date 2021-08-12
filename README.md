@@ -11,7 +11,7 @@ Both ***Azure ML Studio*** and ***Python SDK*** will be used in this project. Th
   - [Architectural Diagram](#architectural-diagram)
   - [Key Steps](#key-steps)
   - [Screen Recording](#screen-recording)
-  - [Standout Suggestions](#standout suggestions)
+  - [Standout Suggestions](#standout-suggestions)
 
 ## Dataset
 In this project a bank marketing [dataset](https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv) is used.
@@ -27,7 +27,12 @@ The task is addressed as a classification task and the goal is to predict if a c
 The following diagram shows all the steps of the entire process:
 ![Architectural Diagram](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/architectural_diagram.png)
 
-  - ***Authentication***:
+  - ***Authentication***: authentication is crucial for the continuous flow of operations. infact, when it is not set properly it requires human interaction and thus, the flow is     interrupted. So whenever possible, it's good to use authentication with automation (authentication types: key-based, token-based).
+    
+    A *Service Principal* is a user role with controlled permissions to access specific resources. Using a service principal is a great way to allow authentication while reducing     the scope of permissions, which enhances security.
+    
+    This step has been skipped since we are not authorized to create a security principal, using the lab udacity provided.
+  
   - ***Auto ML Model***:
   - ***Deploy the best model***
   - ***Enable logging***:
