@@ -48,6 +48,7 @@ The following diagram shows all the steps of the entire process:
 
 ## Key Steps
   - ***Auto ML Model***
+    
     Automated ML includes all the tasks of machine learning model development, from loading dataset, creating pipeline and AutoML step, to start the training procedure:
     
       - ***Load data***: dataset has been loaded as tabularDataset and registered in workspace
