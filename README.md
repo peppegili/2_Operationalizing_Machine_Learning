@@ -25,6 +25,7 @@ The task is addressed as a classification task and the goal is to predict if a c
 *TODO*: Provide an architectual diagram of the project and give an introduction of each step. An architectural diagram is an image that helps visualize the flow of operations from start to finish. In this case, it has to be related to the completed project, with its various stages that are critical to the overall flow. For example, one stage for managing models could be "using Automated ML to determine the best model". 
 
 The following diagram shows all the steps of the entire process:
+
 ![Architectural Diagram](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/architectural_diagram.png)
 
   - ***Authentication***: authentication is crucial for the continuous flow of operations. infact, when it is not set properly it requires human interaction and thus, the flow is     interrupted. So whenever possible, it's good to use authentication with automation (authentication types: key-based, token-based).
@@ -33,7 +34,8 @@ The following diagram shows all the steps of the entire process:
     
     This step has been skipped since we are not authorized to create a security principal, using the lab udacity provided.
   
-  - ***Auto ML Model***:
+  - ***Auto ML Model***: AutoML is the process of automating the time-consuming, iterative tasks of machine learning model development. A classification model on bank marketing       [dataset](https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv) is built using AutoML.
+  
   - ***Deploy the best model***
   - ***Enable logging***:
   - ***Consume model endpoints***:
