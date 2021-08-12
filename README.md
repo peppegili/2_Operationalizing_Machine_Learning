@@ -254,9 +254,31 @@ The following diagram shows all the steps of the entire process:
         Photo
   
   - **Create and publish a pipeline**
+    *Python SDK* has been used to crate and publish a pipeline. A pipeline automate the entire training process and when a pipeline is published, a publich HTTP endpoint becomes       available, allowing other services, including external ones, to interact with Azure Pipeline.
+    
+    The following code has been used to publish the pipeline to the workspace:
+    ```
+    published_pipeline = pipeline_run.publish_pipeline(
+    name="Bankmarketing Train", description="Training bankmarketing pipeline", version="1.0")
+
+    published_pipeline
+    ```
+    The following code has been used to send a POST request to the endpoint. The endpoint is the URI that the SDK will use to communicate with it over HTTP:
+    ```
+    import requests
+
+    rest_endpoint = published_pipeline.endpoint
+    response = requests.post(rest_endpoint, 
+                             headers=auth_header, 
+                             json={"ExperimentName": "pipeline-rest-endpoint"}
+                            )
+    ```
+    Once all steps have been completed, the Pipeline will be triggered and available in Azure ML Studio
+    
+    Photo
   
 ## Screen Recording
-*TODO* Provide a link to a screen recording of the project in action. Remember that the screencast should demonstrate:
+Link to a screen recording of the project in action
 
 ## Standout Suggestions
 *TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
