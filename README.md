@@ -241,7 +241,17 @@ The following diagram shows all the steps of the entire process:
         ```
         The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed.
       
-      - ***Benchmarking***: being able to create a baseline of acceptable performance so that it can be compared to day-to-day behavior
+      - ***Benchmarking***: abenchmark is used to create a baseline or acceptable performance measure. Benchmarking HTTP APIs is used to find the average response time for a               deployed model. One of the most significant metrics is the *response time* since Azure will timeout if the response times are longer than 60 seconds.
+        
+        [Apache Benchmark](https://httpd.apache.org/docs/2.4/programs/ab.html) is an easy and popular tool for benchmarking HTTP services.
+        
+        The [benchmark.sh](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/benchmark.sh) has been executed, once the correct endpoint and key have             been compiled
+        ```
+        ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer REPLACE_WITH_KEY' http://REPLACE_WITH_API_URL/score
+        ```
+        *data.json* has been required and used to HTTP POST to the endpoint.
+        
+        Photo
     
   
 ## Screen Recording
