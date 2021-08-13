@@ -183,19 +183,19 @@ Endpoints allow other services to interact with deployed models. There are some 
    
 - **Swagger**: swagger is a tool that eases the documentation efforts of HTTP APIs. It helps to build, document, and consume RESTful web services. It further explains what types of HTTP requests that an API can consume, like POST and GET.
 
-⋅⋅⋅Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
+  Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
         
- The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger) containing *swagger.sh* and *serve.py* scripts.
+  The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger) containing *swagger.sh* and *serve.py* scripts.
         
- ![Swagger Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_terminal.png)
+  ![Swagger Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_terminal.png)
         
- Then, *serve.py* and *swagger.sh* have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 9000, respectively. The documentation for the HTTP API of the model is shown below:
+  Then, *serve.py* and *swagger.sh* have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 9000, respectively. The documentation for the HTTP API of the model is shown below:
         
- ![Swagger](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger.png)
+  ![Swagger](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger.png)
         
- ![Swagger Post](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post.png)
+  ![Swagger Post](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post.png)
         
- ![Swagger Post 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post_2.png)
+  ![Swagger Post 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post_2.png)
        
         
 - **Consume deployed services**: a deployed service can be consumed via an HTTP API. Users can initiate HTTP requestes, for example an input request, usually via an HTTP POST request. HTTP POST is a request method that is used to submit data. The HTTP GET is another commonly used request method. HTTP GET is used to retrieve information from a URL. The allowed requests methods and the different URLs exposed by Azure create a bi-directional flow of information.
