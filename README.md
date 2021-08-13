@@ -72,6 +72,7 @@ The following diagram shows all the steps of the entire process:
                                           
         df = dataset.to_pandas_dataframe()
         ```
+        ![Dataset](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/dataset.png)
         
       - ***AutoML***: *AutoMLConfig*, *AutoMLStep*, *Pipeline* classes, responsible of the automated machine learning process, have been instantiated with the following parameters 
         ```
@@ -107,6 +108,13 @@ The following diagram shows all the steps of the entire process:
             steps=[automl_step])
         ```
         After submitting the pipeline run to the experiment, results metrics have been collected and the best model has been retrieved.
+        
+        The pipeline has been completed in ...
+        
+        ![Pipeline](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline.png)
+        ![Experiment](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment.png)
+        ![Models](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/models.png)
+        ![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
   
   - **Deploy the best model**
     The best model, the output of the above step, has been deployed to ***Azure Container Instance***. *Enable authentication* has been enabled.
