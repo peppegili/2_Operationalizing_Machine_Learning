@@ -314,7 +314,8 @@ The following diagram shows all the steps of the entire process:
     ```
     Once all steps have been completed, the Pipeline will be triggered and available in Azure ML Studio
     
-    Photo
+    ![Pipeline Endpoint 3](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_3.png)
+    ![Pipeline Endpoint 4](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_4.png)
   
 ## Screen Recording
 Link to a screen recording of the project in action
