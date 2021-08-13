@@ -58,73 +58,73 @@ Automated ML includes all the tasks of machine learning model development, from 
     
 - **Load data**: dataset has been loaded as tabularDataset and registered in workspace
 
-```python
-found = False
-key = "BankMarketing Dataset"
-description_text = "Bank Marketing DataSet for Udacity Course 2"
+  ```python
+  found = False
+  key = "BankMarketing Dataset"
+  description_text = "Bank Marketing DataSet for Udacity Course 2"
 
-if key in ws.datasets.keys(): 
-        found = True
-        dataset = ws.datasets[key] 
+  if key in ws.datasets.keys(): 
+          found = True
+          dataset = ws.datasets[key] 
 
-if not found:
-        # Create AML Dataset and register it into Workspace
-        example_data = 'https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv'
-        dataset = Dataset.Tabular.from_delimited_files(example_data)        
-        #Register Dataset in Workspace
-        dataset = dataset.register(workspace=ws,
-                                   name=key,
-                                   description=description_text)
+  if not found:
+          # Create AML Dataset and register it into Workspace
+          example_data = 'https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv'
+          dataset = Dataset.Tabular.from_delimited_files(example_data)        
+          #Register Dataset in Workspace
+          dataset = dataset.register(workspace=ws,
+                                     name=key,
+                                     description=description_text)
 
-df = dataset.to_pandas_dataframe()
-```
-![Dataset](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/dataset.png)
+  df = dataset.to_pandas_dataframe()
+  ```
+  ![Dataset](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/dataset.png)
         
 - **AutoML**: *AutoMLConfig*, *AutoMLStep*, *Pipeline* classes, responsible of the automated machine learning process, have been instantiated with the following parameters
  
-```python
-# AutoML config
-automl_settings = {
-    "experiment_timeout_minutes": 20,
-    "max_concurrent_iterations": 5,
-    "primary_metric" : 'AUC_weighted'
-}
-automl_config = AutoMLConfig(compute_target=compute_target,
-                             task = "classification",
-                             training_data=dataset,
-                             label_column_name="y",   
-                             path = project_folder,
-                             enable_early_stopping= True,
-                             featurization= 'auto',
-                             debug_log = "automl_errors.log",
-                             **automl_settings
-                            )
+  ```python
+  # AutoML config
+  automl_settings = {
+      "experiment_timeout_minutes": 20,
+      "max_concurrent_iterations": 5,
+      "primary_metric" : 'AUC_weighted'
+  }
+  automl_config = AutoMLConfig(compute_target=compute_target,
+                               task = "classification",
+                               training_data=dataset,
+                               label_column_name="y",   
+                               path = project_folder,
+                               enable_early_stopping= True,
+                               featurization= 'auto',
+                               debug_log = "automl_errors.log",
+                               **automl_settings
+                              )
 
-# AutoML step
-automl_step = AutoMLStep(
-    name='automl_module',
-    automl_config=automl_config,
-    outputs=[metrics_data, model_data],
-    allow_reuse=True)
+  # AutoML step
+  automl_step = AutoMLStep(
+      name='automl_module',
+      automl_config=automl_config,
+      outputs=[metrics_data, model_data],
+      allow_reuse=True)
 
-# Pipeline
-from azureml.pipeline.core import Pipeline
-pipeline = Pipeline(
-    description="pipeline_with_automlstep",
-    workspace=ws,    
-    steps=[automl_step])
-```
-After submitting the pipeline run to the experiment, results metrics have been collected and the best model, ***VotingEnsemble***, has been retrieved.
+  # Pipeline
+  from azureml.pipeline.core import Pipeline
+  pipeline = Pipeline(
+      description="pipeline_with_automlstep",
+      workspace=ws,    
+      steps=[automl_step])
+  ```
+  After submitting the pipeline run to the experiment, results metrics have been collected and the best model, ***VotingEnsemble***, has been retrieved.
 
-The pipeline has been completed in 29m 22s.
+  The pipeline has been completed in 29m 22s.
 
-![Pipeline](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline.png)
+  ![Pipeline](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline.png)
 
-![Experiment](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment.png)
+  ![Experiment](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment.png)
 
-![Experiment Graph](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment_graph.png)
+  ![Experiment Graph](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment_graph.png)
 
-![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
+  ![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
   
 ### **Deploy the best model**
 The best model, the output of the above step, has been deployed to ***Azure Container Instance***, by clicking the button "Deploy" in *Model* tab under *Experiment* section. *Enable authentication* has been enabled.
@@ -201,98 +201,98 @@ Endpoints allow other services to interact with deployed models. There are some 
 - **Consume deployed services**: a deployed service can be consumed via an HTTP API. Users can initiate HTTP requestes, for example an input request, usually via an HTTP POST request. HTTP POST is a request method that is used to submit data. The HTTP GET is another commonly used request method. HTTP GET is used to retrieve information from a URL. The allowed requests methods and the different URLs exposed by Azure create a bi-directional flow of information.
 The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accept data and submit responses.
         
-The provided script [endpoint.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/endpoint.py) has been executed in order to interact with the deployed model. It has been modified with the correct *scoring_uri* and *key* retrieved from the "*Consume*" tab of the endpoint:
-```python
-import requests
-import json
+  The provided script [endpoint.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/endpoint.py) has been executed in order to interact with the deployed model. It has been modified with the correct *scoring_uri* and *key* retrieved from the "*Consume*" tab of the endpoint:
+  ```python
+  import requests
+  import json
 
-# URL for the web service, should be similar to:
-# 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
-scoring_uri = 'http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score'
-# If the service is authenticated, set the key or token
-key = 'OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg'
+  # URL for the web service, should be similar to:
+  # 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
+  scoring_uri = 'http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score'
+  # If the service is authenticated, set the key or token
+  key = 'OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg'
 
-# Two sets of data to score, so we get two results back
-data = {"data":
-        [
-          {
-            "age": 17,
-            "job": "blue-collar",
-            "marital": "married",
-            "education": "university.degree",
-            "default": "no",
-            "housing": "yes",
-            "loan": "yes",
-            "contact": "cellular",
-            "month": "may",
-            "day_of_week": "mon",
-            "duration": 971,
-            "campaign": 1,
-            "pdays": 999,
-            "previous": 1,
-            "poutcome": "failure",
-            "emp.var.rate": -1.8,
-            "cons.price.idx": 92.893,
-            "cons.conf.idx": -46.2,
-            "euribor3m": 1.299,
-            "nr.employed": 5099.1
-          },
-          {
-            "age": 87,
-            "job": "blue-collar",
-            "marital": "married",
-            "education": "university.degree",
-            "default": "no",
-            "housing": "yes",
-            "loan": "yes",
-            "contact": "cellular",
-            "month": "may",
-            "day_of_week": "mon",
-            "duration": 471,
-            "campaign": 1,
-            "pdays": 999,
-            "previous": 1,
-            "poutcome": "failure",
-            "emp.var.rate": -1.8,
-            "cons.price.idx": 92.893,
-            "cons.conf.idx": -46.2,
-            "euribor3m": 1.299,
-            "nr.employed": 5099.1
-          },
-      ]
-    }
-# Convert to JSON string
-input_data = json.dumps(data)
-with open("data.json", "w") as _f:
-    _f.write(input_data)
+  # Two sets of data to score, so we get two results back
+  data = {"data":
+          [
+            {
+              "age": 17,
+              "job": "blue-collar",
+              "marital": "married",
+              "education": "university.degree",
+              "default": "no",
+              "housing": "yes",
+              "loan": "yes",
+              "contact": "cellular",
+              "month": "may",
+              "day_of_week": "mon",
+              "duration": 971,
+              "campaign": 1,
+              "pdays": 999,
+              "previous": 1,
+              "poutcome": "failure",
+              "emp.var.rate": -1.8,
+              "cons.price.idx": 92.893,
+              "cons.conf.idx": -46.2,
+              "euribor3m": 1.299,
+              "nr.employed": 5099.1
+            },
+            {
+              "age": 87,
+              "job": "blue-collar",
+              "marital": "married",
+              "education": "university.degree",
+              "default": "no",
+              "housing": "yes",
+              "loan": "yes",
+              "contact": "cellular",
+              "month": "may",
+              "day_of_week": "mon",
+              "duration": 471,
+              "campaign": 1,
+              "pdays": 999,
+              "previous": 1,
+              "poutcome": "failure",
+              "emp.var.rate": -1.8,
+              "cons.price.idx": 92.893,
+              "cons.conf.idx": -46.2,
+              "euribor3m": 1.299,
+              "nr.employed": 5099.1
+            },
+        ]
+      }
+  # Convert to JSON string
+  input_data = json.dumps(data)
+  with open("data.json", "w") as _f:
+      _f.write(input_data)
 
-# Set the content type
-headers = {'Content-Type': 'application/json'}
-# If authentication is enabled, set the authorization header
-headers['Authorization'] = f'Bearer {key}'
+  # Set the content type
+  headers = {'Content-Type': 'application/json'}
+  # If authentication is enabled, set the authorization header
+  headers['Authorization'] = f'Bearer {key}'
 
-# Make the request and display the response
-resp = requests.post(scoring_uri, input_data, headers=headers)
-print(resp.json())
-```
-The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
-        
-![Endpoint Test](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test.png)
-![Endpoint Test 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test_2.png)
+  # Make the request and display the response
+  resp = requests.post(scoring_uri, input_data, headers=headers)
+  print(resp.json())
+  ```
+  The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
+
+  ![Endpoint Test](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test.png)
+  ![Endpoint Test 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test_2.png)
       
 - **Benchmarking**: a benchmark is used to create a baseline or acceptable performance measure. Benchmarking HTTP APIs is used to find the average response time for a deployed model. One of the most significant metrics is the *response time* since Azure will timeout if the response times are longer than 60 seconds.
         
-[Apache Benchmark](https://httpd.apache.org/docs/2.4/programs/ab.html) is an easy and popular tool for benchmarking HTTP services.
-        
-The [benchmark.sh](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/benchmark.sh) has been executed, once the correct endpoint and key have been compiled
-```
-ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg' http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score
+  [Apache Benchmark](https://httpd.apache.org/docs/2.4/programs/ab.html) is an easy and popular tool for benchmarking HTTP services.
 
-```
-*data.json* has been required and used to HTTP POST to the endpoint.
-        
-![Benchmark](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark.png)
-![Benchmark 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark_2.png)
+  The [benchmark.sh](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/benchmark.sh) has been executed, once the correct endpoint and key have been compiled
+  ```
+  ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg' http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score
+
+  ```
+  *data.json* has been required and used to HTTP POST to the endpoint.
+
+  ![Benchmark](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark.png)
+  ![Benchmark 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark_2.png)
         
   
 ### **Create and publish a pipeline**
