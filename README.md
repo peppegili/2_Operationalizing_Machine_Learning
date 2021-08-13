@@ -275,7 +275,7 @@ The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accep
   resp = requests.post(scoring_uri, input_data, headers=headers)
   print(resp.json())
   ```
-  The script issues a `POST` request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
+  The script issues a `POST` request to the deployed model and gets a JSON response. A `data.json` file has been created once the script has been executed:
 
   ![Endpoint Test](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test.png)
   ![Endpoint Test 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test_2.png)
@@ -309,7 +309,7 @@ published_pipeline
 ![Pipeline Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint.png)
 ![Pipeline Endpoint 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_2.png)
 
-The following code has been used to send a POST request to the endpoint. The endpoint is the URI that the SDK will use to communicate with it over HTTP:
+The following code has been used to send a `POST` request to the endpoint. The endpoint is the URI that the SDK will use to communicate with it over HTTP:
 ```python
 import requests
 
