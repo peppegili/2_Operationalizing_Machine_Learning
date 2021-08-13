@@ -329,3 +329,7 @@ Once all steps have been completed, the Pipeline will be triggered and available
 [Link](https://drive.google.com/file/d/1i4SaNovKVCzf2W8D6ghK6zWn95N5md9P/view?usp=sharing) to the video.
 
 ## Future Work
+- Enhance the pipeline with other steps, i.e. preprocessing, feature engineering, etc.
+- Handle class imbalance problem, when performing AutoML
+- Try to add CI/CD for automated testing
+- Show model output using an user frindly dashboard
