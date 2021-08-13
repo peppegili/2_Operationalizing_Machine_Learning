@@ -127,6 +127,10 @@ The following diagram shows all the steps of the entire process:
     ![Model Deploy Running](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_running.png)
     
     ![Model Deploy Completed](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_completed.png)
+    
+    Once the best model has been deployed ("Deployment state" has become *Healthy*) a REST endpoint and a Swagger URI have been generated.
+    
+    ![Model Deploy Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_endpoint.png)
 
   - **Enable logging**
     After the model has been deployed, a REST endpoint and a Swagger URI have been generated.
