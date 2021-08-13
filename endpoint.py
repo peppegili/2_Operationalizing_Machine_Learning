@@ -24,7 +24,7 @@ data = {"data":
             "duration": 971,
             "campaign": 1,
             "pdays": 999,
-            "previous": 1
+            "previous": 1,
             "poutcome": "failure",
             "emp.var.rate": -1.8,
             "cons.price.idx": 92.893,
