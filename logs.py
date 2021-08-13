@@ -7,7 +7,7 @@ ws = Workspace.from_config()
 # Set with the deployment name
 name = "model-deploy"
 
-# load existing web service
+# Load existing web service
 service = Webservice(name=name, workspace=ws)
 # Enable Application Insights
 service.update(enable_app_insights=True)
