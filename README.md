@@ -112,8 +112,11 @@ The following diagram shows all the steps of the entire process:
         The pipeline has been completed in ...
         
         ![Pipeline](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline.png)
+        
         ![Experiment](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment.png)
+        
         ![Models](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/models.png)
+        
         ![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
   
   - **Deploy the best model**
