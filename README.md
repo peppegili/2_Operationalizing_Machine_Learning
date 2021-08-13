@@ -183,7 +183,7 @@ Endpoints allow other services to interact with deployed models. There are some 
    
 - **Swagger**: swagger is a tool that eases the documentation efforts of HTTP APIs. It helps to build, document, and consume RESTful web services. It further explains what types of HTTP requests that an API can consume, like POST and GET.
 
- Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
+⋅⋅⋅Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
         
  The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger) containing *swagger.sh* and *serve.py* scripts.
         
