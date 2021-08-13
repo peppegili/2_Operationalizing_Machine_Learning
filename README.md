@@ -12,7 +12,18 @@ The [aml-pipelines-with-automated-machine-learning-step.ipynb](https://github.co
   - [Dataset](#dataset)
   - [Architectural Diagram](#architectural-diagram)
   - [Key Steps](#key-steps)
+    - [AutoML Model](#automl-model)
+      - [Load data](#load-dataset)
+      - [AutoML](#automl)
+    - [Deploy the best model](#deploy-the-best-model)
+    - [Enable logging](#enable-logging)
+    - [Consume model endpoints](#consume-model-endpoints)
+      - [Swagger](#swagger)
+      - [Consume deployed services](#consume-deployed-services)
+      - [Benchmarking](#benchmarking)
+    - [Create and publish a pipeline](#create-and-publish-a-pipeline)
   - [Screen Recording](#screen-recording)
+  - [Future Work](#future-work)
 
 ## Dataset
 In this project a bank marketing [dataset](https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv) is used.
