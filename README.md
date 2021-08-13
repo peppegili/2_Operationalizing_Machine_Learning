@@ -8,22 +8,22 @@ Both ***Azure ML Studio*** and ***Python SDK*** will be used in this project. Th
 The [aml-pipelines-with-automated-machine-learning-step.ipynb](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/aml-pipelines-with-automated-machine-learning-step.ipynb) jupyter notebook contains all the steps of the entire procedure.
 
 ## Table of Contents
-  - [Overview](#overview)
-  - [Dataset](#dataset)
-  - [Architectural Diagram](#architectural-diagram)
-  - [Key Steps](#key-steps)
-    - [AutoML Model](##automl-model)
-      - [Load data](#load-dataset)
-      - [AutoML](#automl)
-    - [Deploy the best model](#deploy-the-best-model)
-    - [Enable logging](#enable-logging)
-    - [Consume model endpoints](#consume-model-endpoints)
-      - [Swagger](#swagger)
-      - [Consume deployed services](#consume-deployed-services)
-      - [Benchmarking](#benchmarking)
-    - [Create and publish a pipeline](#create-and-publish-a-pipeline)
-  - [Screen Recording](#screen-recording)
-  - [Future Work](#future-work)
+- [Overview](#overview)
+- [Dataset](#dataset)
+- [Architectural Diagram](#architectural-diagram)
+- [Key Steps](#key-steps)
+  - [AutoML Model](##automl-model)
+    - [Load data](#load-dataset)
+    - [AutoML](#automl)
+  - [Deploy the best model](#deploy-the-best-model)
+  - [Enable logging](#enable-logging)
+  - [Consume model endpoints](#consume-model-endpoints)
+    - [Swagger](#swagger)
+    - [Consume deployed services](#consume-deployed-services)
+    - [Benchmarking](#benchmarking)
+  - [Create and publish a pipeline](#create-and-publish-a-pipeline)
+- [Screen Recording](#screen-recording)
+- [Future Work](#future-work)
 
 ## Dataset
 In this project a bank marketing [dataset](https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv) is used.
@@ -57,7 +57,7 @@ The following diagram shows all the steps of the entire process:
   - **Documentation**: this is the last but not least step. A screencast video and a README file have been created, containing the description of the project and all the               performed steps
 
 ## Key Steps
-  - **Auto ML Model**
+  ### **Auto ML Model**
     
     Automated ML includes all the tasks of machine learning model development, from loading dataset, creating pipeline and AutoML step, to start the training procedure:
     
