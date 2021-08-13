@@ -61,7 +61,7 @@ The following diagram shows all the steps of the entire process:
 
 Automated ML includes all the tasks of machine learning model development, from loading dataset, creating pipeline and AutoML step, to start the training procedure:
     
-- ***Load data***: dataset has been loaded as tabularDataset and registered in workspace
+- **Load data**: dataset has been loaded as tabularDataset and registered in workspace
 
 ```python
 found = False
@@ -85,7 +85,7 @@ df = dataset.to_pandas_dataframe()
 ```
 ![Dataset](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/dataset.png)
         
-- ***AutoML***: *AutoMLConfig*, *AutoMLStep*, *Pipeline* classes, responsible of the automated machine learning process, have been instantiated with the following parameters
+- **AutoML**: *AutoMLConfig*, *AutoMLStep*, *Pipeline* classes, responsible of the automated machine learning process, have been instantiated with the following parameters
  
 ```python
 # AutoML config
@@ -131,7 +131,7 @@ The pipeline has been completed in 29m 22s.
 
 ![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
   
-- **Deploy the best model**
+### **Deploy the best model**
 The best model, the output of the above step, has been deployed to ***Azure Container Instance***, by clicking the button "Deploy" in *Model* tab under *Experiment* section. *Enable authentication* has been enabled.
     
 ![Model Deploy](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy.png)
@@ -141,7 +141,7 @@ The best model, the output of the above step, has been deployed to ***Azure Cont
 ![Model Deploy Completed](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_completed.png)
     
     
-- **Enable logging**
+### **Enable logging**
 Once the model has been deployed ("Deployment state" has become *Healthy*), a REST endpoint and a Swagger URI have been generated.
     
 ![Model Deploy Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_endpoint.png)
@@ -182,153 +182,155 @@ When the execution has been completed, ***Application Insights*** has been set t
     
 ![Application Insights Monitor](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights_monitor.png)
   
- - **Consume model endpoints**
+### **Consume model endpoints**
 
-   Endpoints allow other services to interact with deployed models. There are some interesting details to be aware when trying to use HTTP:
+Endpoints allow other services to interact with deployed models. There are some interesting details to be aware when trying to use HTTP:
    
-      - ***Swagger***: swagger is a tool that eases the documentation efforts of HTTP APIs. It helps to build, document, and consume RESTful web services. It further explains what         types of HTTP requests that an API can consume, like POST and GET.
+- **Swagger**: swagger is a tool that eases the documentation efforts of HTTP APIs. It helps to build, document, and consume RESTful web services. It further explains what types of HTTP requests that an API can consume, like POST and GET.
         
-        Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
+Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
         
-        The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger)             containing *swagger.sh* and *serve.py* scripts.
+The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger) containing *swagger.sh* and *serve.py* scripts.
         
-        ![Swagger Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_terminal.png)
+![Swagger Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_terminal.png)
         
-        Then, *serve.py* and *swagger.sh* have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 9000,             respectively. The documentation for the HTTP API of the model is shown below:
+Then, *serve.py* and *swagger.sh* have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 9000, respectively. The documentation for the HTTP API of the model is shown below:
         
-        ![Swagger](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger.png)
+![Swagger](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger.png)
         
-        ![Swagger Post](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post.png)
+![Swagger Post](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post.png)
         
-        ![Swagger Post 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post_2.png)
+![Swagger Post 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post_2.png)
        
         
-      - ***Consume deployed services***: a deployed service can be consumed via an HTTP API. Users can initiate HTTP requestes, for example an input request, usually via an HTTP           POST request. HTTP POST is a request method that is used to submit data. The HTTP GET is another commonly used request method. HTTP GET is used to retrieve information             from a URL. The allowed requests methods and the different URLs exposed by Azure create a bi-directional flow of information.
-        The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accept data and submit responses.
+- **Consume deployed services**: a deployed service can be consumed via an HTTP API. Users can initiate HTTP requestes, for example an input request, usually via an HTTP POST request. HTTP POST is a request method that is used to submit data. The HTTP GET is another commonly used request method. HTTP GET is used to retrieve information from a URL. The allowed requests methods and the different URLs exposed by Azure create a bi-directional flow of information.
+The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accept data and submit responses.
         
-        The provided script [endpoint.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/endpoint.py) has been executed in order to interact with the         deployed model. It has been modified with the correct *scoring_uri* and *key* retrieved from the "*Consume*" tab of the endpoint:
-        ```
-        import requests
-        import json
+The provided script [endpoint.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/endpoint.py) has been executed in order to interact with the deployed model. It has been modified with the correct *scoring_uri* and *key* retrieved from the "*Consume*" tab of the endpoint:
+```python
+import requests
+import json
 
-        # URL for the web service, should be similar to:
-        # 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
-        scoring_uri = 'http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score'
-        # If the service is authenticated, set the key or token
-        key = 'OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg'
+# URL for the web service, should be similar to:
+# 'http://8530a665-66f3-49c8-a953-b82a2d312917.eastus.azurecontainer.io/score'
+scoring_uri = 'http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score'
+# If the service is authenticated, set the key or token
+key = 'OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg'
 
-        # Two sets of data to score, so we get two results back
-        data = {"data":
-                [
-                  {
-                    "age": 17,
-                    "job": "blue-collar",
-                    "marital": "married",
-                    "education": "university.degree",
-                    "default": "no",
-                    "housing": "yes",
-                    "loan": "yes",
-                    "contact": "cellular",
-                    "month": "may",
-                    "day_of_week": "mon",
-                    "duration": 971,
-                    "campaign": 1,
-                    "pdays": 999,
-                    "previous": 1,
-                    "poutcome": "failure",
-                    "emp.var.rate": -1.8,
-                    "cons.price.idx": 92.893,
-                    "cons.conf.idx": -46.2,
-                    "euribor3m": 1.299,
-                    "nr.employed": 5099.1
-                  },
-                  {
-                    "age": 87,
-                    "job": "blue-collar",
-                    "marital": "married",
-                    "education": "university.degree",
-                    "default": "no",
-                    "housing": "yes",
-                    "loan": "yes",
-                    "contact": "cellular",
-                    "month": "may",
-                    "day_of_week": "mon",
-                    "duration": 471,
-                    "campaign": 1,
-                    "pdays": 999,
-                    "previous": 1,
-                    "poutcome": "failure",
-                    "emp.var.rate": -1.8,
-                    "cons.price.idx": 92.893,
-                    "cons.conf.idx": -46.2,
-                    "euribor3m": 1.299,
-                    "nr.employed": 5099.1
-                  },
-              ]
-            }
-        # Convert to JSON string
-        input_data = json.dumps(data)
-        with open("data.json", "w") as _f:
-            _f.write(input_data)
+# Two sets of data to score, so we get two results back
+data = {"data":
+        [
+          {
+            "age": 17,
+            "job": "blue-collar",
+            "marital": "married",
+            "education": "university.degree",
+            "default": "no",
+            "housing": "yes",
+            "loan": "yes",
+            "contact": "cellular",
+            "month": "may",
+            "day_of_week": "mon",
+            "duration": 971,
+            "campaign": 1,
+            "pdays": 999,
+            "previous": 1,
+            "poutcome": "failure",
+            "emp.var.rate": -1.8,
+            "cons.price.idx": 92.893,
+            "cons.conf.idx": -46.2,
+            "euribor3m": 1.299,
+            "nr.employed": 5099.1
+          },
+          {
+            "age": 87,
+            "job": "blue-collar",
+            "marital": "married",
+            "education": "university.degree",
+            "default": "no",
+            "housing": "yes",
+            "loan": "yes",
+            "contact": "cellular",
+            "month": "may",
+            "day_of_week": "mon",
+            "duration": 471,
+            "campaign": 1,
+            "pdays": 999,
+            "previous": 1,
+            "poutcome": "failure",
+            "emp.var.rate": -1.8,
+            "cons.price.idx": 92.893,
+            "cons.conf.idx": -46.2,
+            "euribor3m": 1.299,
+            "nr.employed": 5099.1
+          },
+      ]
+    }
+# Convert to JSON string
+input_data = json.dumps(data)
+with open("data.json", "w") as _f:
+    _f.write(input_data)
 
-        # Set the content type
-        headers = {'Content-Type': 'application/json'}
-        # If authentication is enabled, set the authorization header
-        headers['Authorization'] = f'Bearer {key}'
+# Set the content type
+headers = {'Content-Type': 'application/json'}
+# If authentication is enabled, set the authorization header
+headers['Authorization'] = f'Bearer {key}'
 
-        # Make the request and display the response
-        resp = requests.post(scoring_uri, input_data, headers=headers)
-        print(resp.json())
-        ```
-        The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
+# Make the request and display the response
+resp = requests.post(scoring_uri, input_data, headers=headers)
+print(resp.json())
+```
+The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
         
-        ![Endpoint Test](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test.png)
-        ![Endpoint Test 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test_2.png)
+![Endpoint Test](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test.png)
+![Endpoint Test 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test_2.png)
       
-      - ***Benchmarking***: a benchmark is used to create a baseline or acceptable performance measure. Benchmarking HTTP APIs is used to find the average response time for a             deployed model. One of the most significant metrics is the *response time* since Azure will timeout if the response times are longer than 60 seconds.
+- **Benchmarking**: a benchmark is used to create a baseline or acceptable performance measure. Benchmarking HTTP APIs is used to find the average response time for a deployed model. One of the most significant metrics is the *response time* since Azure will timeout if the response times are longer than 60 seconds.
         
-        [Apache Benchmark](https://httpd.apache.org/docs/2.4/programs/ab.html) is an easy and popular tool for benchmarking HTTP services.
+[Apache Benchmark](https://httpd.apache.org/docs/2.4/programs/ab.html) is an easy and popular tool for benchmarking HTTP services.
         
-        The [benchmark.sh](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/benchmark.sh) has been executed, once the correct endpoint and key have             been compiled
-        ```
-        ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg' http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score
+The [benchmark.sh](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/benchmark.sh) has been executed, once the correct endpoint and key have been compiled
+```
+ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg' http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score
 
-        ```
-        *data.json* has been required and used to HTTP POST to the endpoint.
+```
+*data.json* has been required and used to HTTP POST to the endpoint.
         
-        ![Benchmark](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark.png)
-        ![Benchmark 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark_2.png)
+![Benchmark](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark.png)
+![Benchmark 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark_2.png)
         
   
-  - **Create and publish a pipeline**
-    *Python SDK* has been used to crate and publish a pipeline. A pipeline automate the entire training process and when a pipeline is published, a publich HTTP endpoint becomes       available, allowing other services, including external ones, to interact with Azure Pipeline.
+### **Create and publish a pipeline**
+*Python SDK* has been used to crate and publish a pipeline. A pipeline automate the entire training process and when a pipeline is published, a publich HTTP endpoint becomes available, allowing other services, including external ones, to interact with Azure Pipeline.
     
-    The following code has been used to publish the pipeline to the workspace:
-    ```
-    published_pipeline = pipeline_run.publish_pipeline(
+The following code has been used to publish the pipeline to the workspace:
+```python
+published_pipeline = pipeline_run.publish_pipeline(
     name="Bankmarketing Train", description="Training bankmarketing pipeline", version="1.0")
 
-    published_pipeline
-    ```
-    
-    ![Pipeline Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint.png)
-    ![Pipeline Endpoint 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_2.png)
-    
-    The following code has been used to send a POST request to the endpoint. The endpoint is the URI that the SDK will use to communicate with it over HTTP:
-    ```
-    import requests
+published_pipeline
+```
 
-    rest_endpoint = published_pipeline.endpoint
-    response = requests.post(rest_endpoint, 
-                             headers=auth_header, 
-                             json={"ExperimentName": "pipeline-rest-endpoint"}
-                            )
-    ```
-    Once all steps have been completed, the Pipeline will be triggered and available in Azure ML Studio
+![Pipeline Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint.png)
+![Pipeline Endpoint 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_2.png)
+
+The following code has been used to send a POST request to the endpoint. The endpoint is the URI that the SDK will use to communicate with it over HTTP:
+```python
+import requests
+
+rest_endpoint = published_pipeline.endpoint
+response = requests.post(rest_endpoint, 
+                         headers=auth_header, 
+                         json={"ExperimentName": "pipeline-rest-endpoint"}
+                        )
+```
+Once all steps have been completed, the Pipeline will be triggered and available in Azure ML Studio
     
-    ![Pipeline Endpoint 3](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_3.png)
-    ![Pipeline Endpoint 4](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_4.png)
-    ![Pipeline Endpoint 5](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_5.png)
+![Pipeline Endpoint 3](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_3.png)
+![Pipeline Endpoint 4](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_4.png)
+![Pipeline Endpoint 5](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_5.png)
   
 ## Screen Recording
 [Link](https://drive.google.com/file/d/1i4SaNovKVCzf2W8D6ghK6zWn95N5md9P/view?usp=sharing) to the video.
+
+## Future Work
