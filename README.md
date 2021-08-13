@@ -271,6 +271,7 @@ The following diagram shows all the steps of the entire process:
         The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
         
         ![Endpoint Test](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test.png)
+        ![Endpoint Test 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test_2.png)
       
       - ***Benchmarking***: a benchmark is used to create a baseline or acceptable performance measure. Benchmarking HTTP APIs is used to find the average response time for a             deployed model. One of the most significant metrics is the *response time* since Azure will timeout if the response times are longer than 60 seconds.
         
