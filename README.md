@@ -318,4 +318,4 @@ The following diagram shows all the steps of the entire process:
     ![Pipeline Endpoint 5](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_5.png)
   
 ## Screen Recording
-[Link](https://drive.google.com/file/d/120PuLuAP9b1GaK12IzTNsZn2SYQCMisb/view?usp=sharing) to the video.
+[Link](https://drive.google.com/file/d/1i4SaNovKVCzf2W8D6ghK6zWn95N5md9P/view?usp=sharing) to the video.
