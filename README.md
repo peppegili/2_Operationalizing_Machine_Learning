@@ -12,7 +12,7 @@ The [aml-pipelines-with-automated-machine-learning-step.ipynb](https://github.co
   - [Dataset](#dataset)
   - [Architectural Diagram](#architectural-diagram)
   - [Key Steps](#key-steps)
-    - [AutoML Model](#automl-model)
+    - [AutoML Model](##automl-model)
       - [Load data](#load-dataset)
       - [AutoML](#automl)
     - [Deploy the best model](#deploy-the-best-model)
