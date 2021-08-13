@@ -276,7 +276,8 @@ The following diagram shows all the steps of the entire process:
         
         The [benchmark.sh](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/benchmark.sh) has been executed, once the correct endpoint and key have             been compiled
         ```
-        ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer REPLACE_WITH_KEY' http://REPLACE_WITH_API_URL/score
+        ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg' http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score
+
         ```
         *data.json* has been required and used to HTTP POST to the endpoint.
         
