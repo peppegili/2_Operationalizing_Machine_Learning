@@ -107,9 +107,9 @@ The following diagram shows all the steps of the entire process:
             workspace=ws,    
             steps=[automl_step])
         ```
-        After submitting the pipeline run to the experiment, results metrics have been collected and the best model has been retrieved.
+        After submitting the pipeline run to the experiment, results metrics have been collected and the best model, ***VotingEnsemble***, has been retrieved.
         
-        The pipeline has been completed in ...
+        The pipeline has been completed in 29m 22s.
         
         ![Pipeline](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline.png)
         
