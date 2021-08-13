@@ -142,11 +142,11 @@ Once the model has been deployed ("Deployment state" has become *Healthy*), a RE
 ![Model Deploy Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_endpoint.png)
     
 ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script
-[logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py).
+`logs.py`.
     
 The script has been modifyied in order to correctly enable ***Application Insights***.
     
-Moreover, [config.json](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/config.json) file, containing workspace info, has been retrieved from Azure ML Studio and placed in the same directory of the above script, before running it.
+Moreover, a `config.json`, containing workspace info, has been retrieved from Azure ML Studio and placed in the same directory of the above script, before running it.
     
 ```python
 from azureml.core import Workspace
@@ -181,15 +181,15 @@ When the execution has been completed, ***Application Insights*** has been set t
 
 Endpoints allow other services to interact with deployed models. There are some interesting details to be aware when trying to use HTTP:
    
-- **Swagger**: swagger is a tool that eases the documentation efforts of HTTP APIs. It helps to build, document, and consume RESTful web services. It further explains what types of HTTP requests that an API can consume, like POST and GET.
+- **Swagger**: swagger is a tool that eases the documentation efforts of HTTP APIs. It helps to build, document, and consume RESTful web services. It further explains what types of HTTP requests that an API can consume, like `POST` and `GET`.
 
-  Azure provides a *swagger.json* that is used to create a web site that documents the HTTP endpoint for a deployed model.
+  Azure provides a `swagger.json` that is used to create a web site that documents the HTTP endpoint for a deployed model.
         
-  The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger) containing *swagger.sh* and *serve.py* scripts.
+  The file has been downloaded (from Swagger URI) and saved in [swagger directory](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/swagger) containing `swagger.sh` and `serve.py` scripts.
         
   ![Swagger Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_terminal.png)
         
-  Then, *serve.py* and *swagger.sh* have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 9000, respectively. The documentation for the HTTP API of the model is shown below:
+  Then, `serve.py` and `swagger.sh` have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 9000, respectively. The documentation for the HTTP API of the model is shown below:
         
   ![Swagger](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger.png)
         
@@ -201,7 +201,7 @@ Endpoints allow other services to interact with deployed models. There are some 
 - **Consume deployed services**: a deployed service can be consumed via an HTTP API. Users can initiate HTTP requestes, for example an input request, usually via an HTTP POST request. HTTP POST is a request method that is used to submit data. The HTTP GET is another commonly used request method. HTTP GET is used to retrieve information from a URL. The allowed requests methods and the different URLs exposed by Azure create a bi-directional flow of information.
 The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accept data and submit responses.
         
-  The provided script [endpoint.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/tree/master/endpoint.py) has been executed in order to interact with the deployed model. It has been modified with the correct *scoring_uri* and *key* retrieved from the "*Consume*" tab of the endpoint:
+  The provided script `endpoint.py` has been executed in order to interact with the deployed model. It has been modified with the correct *scoring_uri* and *key* retrieved from the "*Consume*" tab of the endpoint:
   ```python
   import requests
   import json
@@ -275,7 +275,7 @@ The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accep
   resp = requests.post(scoring_uri, input_data, headers=headers)
   print(resp.json())
   ```
-  The script issues a POST request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
+  The script issues a `POST` request to the deployed model and gets a JSON response. A *data.json* file has been created once the script has been executed:
 
   ![Endpoint Test](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test.png)
   ![Endpoint Test 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/endpoint_test_2.png)
@@ -284,12 +284,12 @@ The APIs exposed by Azure ML will use JSON (JavaScript Object Notation) to accep
         
   [Apache Benchmark](https://httpd.apache.org/docs/2.4/programs/ab.html) is an easy and popular tool for benchmarking HTTP services.
 
-  The [benchmark.sh](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/benchmark.sh) has been executed, once the correct endpoint and key have been compiled
+  The `benchmark.sh` has been executed, once the correct endpoint and key have been compiled
   ```
   ab -n 10 -v 4 -p data.json -T 'application/json' -H 'Authorization: Bearer OSqqbQTqY3bMc8eeFVUbGeqKf6WelvBg' http://4c4af6b2-3cb1-40bf-9448-1f97233b5a54.southcentralus.azurecontainer.io/score
 
   ```
-  *data.json* has been required and used to HTTP POST to the endpoint.
+  The payload `data.json` has been required and used to HTTP POST to the endpoint.
 
   ![Benchmark](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark.png)
   ![Benchmark 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark_2.png)
