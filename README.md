@@ -134,7 +134,7 @@ The following diagram shows all the steps of the entire process:
     
     ![Model Deploy Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_endpoint.png)
     
-    ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script:
+    ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script
     [logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py).
     
     The script has been modifyied in order to correctly enable ***Application Insights***.
@@ -163,6 +163,8 @@ The following diagram shows all the steps of the entire process:
         print(line)
     ```
     When the execution has been completed, ***Application Insights*** has been set to true:
+    
+    ![Logs Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/logs_terminal.png)
     
     ![Application Insights](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights.png)
     
