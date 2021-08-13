@@ -165,6 +165,8 @@ The following diagram shows all the steps of the entire process:
     When the execution has been completed, ***Application Insights*** has been set to true:
     
     ![Application Insights](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights.png)
+    
+    ![Application Insights Monitor](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights_monitor.png)
   
  - **Consume model endpoints**
 
