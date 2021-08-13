@@ -284,7 +284,9 @@ The following diagram shows all the steps of the entire process:
         ```
         *data.json* has been required and used to HTTP POST to the endpoint.
         
-        Photo
+        ![Benchmark](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark.png)
+        ![Benchmark 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/benchmark_2.png)
+        
   
   - **Create and publish a pipeline**
     *Python SDK* has been used to crate and publish a pipeline. A pipeline automate the entire training process and when a pipeline is published, a publich HTTP endpoint becomes       available, allowing other services, including external ones, to interact with Azure Pipeline.
