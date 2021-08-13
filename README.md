@@ -128,17 +128,16 @@ The following diagram shows all the steps of the entire process:
     
     ![Model Deploy Completed](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_completed.png)
     
-    Once the best model has been deployed ("Deployment state" has become *Healthy*) a REST endpoint and a Swagger URI have been generated.
+    
+  - **Enable logging**
+    Once the model has been deployed ("Deployment state" has become *Healthy*), a REST endpoint and a Swagger URI have been generated.
     
     ![Model Deploy Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_endpoint.png)
-
-  - **Enable logging**
-    After the model has been deployed, a REST endpoint and a Swagger URI have been generated.
     
-    Photo
+    ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script:
+    [logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py).
     
-    ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script 
-    [logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py). The script has been modifyied in order to correctly enable ***Application         Insights***
+    The script has been modifyied in order to correctly enable ***Application Insights***:
     
     Photo
     
