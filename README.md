@@ -316,6 +316,7 @@ The following diagram shows all the steps of the entire process:
     
     ![Pipeline Endpoint 3](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_3.png)
     ![Pipeline Endpoint 4](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_4.png)
+    ![Pipeline Endpoint 5](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_5.png)
   
 ## Screen Recording
 Link to a screen recording of the project in action
