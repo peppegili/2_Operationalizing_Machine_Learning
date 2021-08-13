@@ -162,7 +162,7 @@ The following diagram shows all the steps of the entire process:
     for line in logs.split('\n'):
         print(line)
     ```
-    When the execution has been completed, ***Application Insights*** has been set to true
+    When the execution has been completed, ***Application Insights*** has been set to true:
     
     Photo
   
