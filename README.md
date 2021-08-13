@@ -139,7 +139,7 @@ The following diagram shows all the steps of the entire process:
     
     The script has been modifyied in order to correctly enable ***Application Insights***.
     
-    [config.json](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/config.json) file, containing workspace info, has been retrieved and placed in the       same directory of the above script, before running it.
+    Moreover, [config.json](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/config.json) file, containing workspace info, has been retrieved from         Azure ML Studio and placed in the same directory of the above script, before running it.
     
     ```
     from azureml.core import Workspace
