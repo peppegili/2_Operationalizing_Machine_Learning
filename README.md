@@ -12,7 +12,7 @@ The [aml-pipelines-with-automated-machine-learning-step.ipynb](https://github.co
 - [Dataset](#dataset)
 - [Architectural Diagram](#architectural-diagram)
 - [Key Steps](#key-steps)
-  - [AutoML Model](##automl-model)
+  - [AutoML Model](#automl-model)
     - [Load data](#load-dataset)
     - [AutoML](#automl)
   - [Deploy the best model](#deploy-the-best-model)
@@ -57,128 +57,130 @@ The following diagram shows all the steps of the entire process:
   - **Documentation**: this is the last but not least step. A screencast video and a README file have been created, containing the description of the project and all the               performed steps
 
 ## Key Steps
-  ### **Auto ML Model**
-    
-    Automated ML includes all the tasks of machine learning model development, from loading dataset, creating pipeline and AutoML step, to start the training procedure:
-    
-      - ***Load data***: dataset has been loaded as tabularDataset and registered in workspace
-        ```
-        found = False
-        key = "BankMarketing Dataset"
-        description_text = "Bank Marketing DataSet for Udacity Course 2"
+### **Auto ML Model**
 
-        if key in ws.datasets.keys(): 
-                found = True
-                dataset = ws.datasets[key] 
+Automated ML includes all the tasks of machine learning model development, from loading dataset, creating pipeline and AutoML step, to start the training procedure:
+    
+- ***Load data***: dataset has been loaded as tabularDataset and registered in workspace
 
-        if not found:
-                # Create AML Dataset and register it into Workspace
-                example_data = 'https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv'
-                dataset = Dataset.Tabular.from_delimited_files(example_data)        
-                #Register Dataset in Workspace
-                dataset = dataset.register(workspace=ws,
-                                           name=key,
-                                           description=description_text)
-                                          
-        df = dataset.to_pandas_dataframe()
-        ```
-        ![Dataset](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/dataset.png)
+```python
+found = False
+key = "BankMarketing Dataset"
+description_text = "Bank Marketing DataSet for Udacity Course 2"
+
+if key in ws.datasets.keys(): 
+        found = True
+        dataset = ws.datasets[key] 
+
+if not found:
+        # Create AML Dataset and register it into Workspace
+        example_data = 'https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv'
+        dataset = Dataset.Tabular.from_delimited_files(example_data)        
+        #Register Dataset in Workspace
+        dataset = dataset.register(workspace=ws,
+                                   name=key,
+                                   description=description_text)
+
+df = dataset.to_pandas_dataframe()
+```
+![Dataset](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/dataset.png)
         
-      - ***AutoML***: *AutoMLConfig*, *AutoMLStep*, *Pipeline* classes, responsible of the automated machine learning process, have been instantiated with the following parameters 
-        ```
-        # AutoML config
-        automl_settings = {
-            "experiment_timeout_minutes": 20,
-            "max_concurrent_iterations": 5,
-            "primary_metric" : 'AUC_weighted'
-        }
-        automl_config = AutoMLConfig(compute_target=compute_target,
-                                     task = "classification",
-                                     training_data=dataset,
-                                     label_column_name="y",   
-                                     path = project_folder,
-                                     enable_early_stopping= True,
-                                     featurization= 'auto',
-                                     debug_log = "automl_errors.log",
-                                     **automl_settings
-                                    )
-        
-        # AutoML step
-        automl_step = AutoMLStep(
-            name='automl_module',
-            automl_config=automl_config,
-            outputs=[metrics_data, model_data],
-            allow_reuse=True)
-        
-        # Pipeline
-        from azureml.pipeline.core import Pipeline
-        pipeline = Pipeline(
-            description="pipeline_with_automlstep",
-            workspace=ws,    
-            steps=[automl_step])
-        ```
-        After submitting the pipeline run to the experiment, results metrics have been collected and the best model, ***VotingEnsemble***, has been retrieved.
-        
-        The pipeline has been completed in 29m 22s.
-        
-        ![Pipeline](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline.png)
-        
-        ![Experiment](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment.png)
-        
-        ![Experiment Graph](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment_graph.png)
-        
-        ![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
+- ***AutoML***: *AutoMLConfig*, *AutoMLStep*, *Pipeline* classes, responsible of the automated machine learning process, have been instantiated with the following parameters
+ 
+```python
+# AutoML config
+automl_settings = {
+    "experiment_timeout_minutes": 20,
+    "max_concurrent_iterations": 5,
+    "primary_metric" : 'AUC_weighted'
+}
+automl_config = AutoMLConfig(compute_target=compute_target,
+                             task = "classification",
+                             training_data=dataset,
+                             label_column_name="y",   
+                             path = project_folder,
+                             enable_early_stopping= True,
+                             featurization= 'auto',
+                             debug_log = "automl_errors.log",
+                             **automl_settings
+                            )
+
+# AutoML step
+automl_step = AutoMLStep(
+    name='automl_module',
+    automl_config=automl_config,
+    outputs=[metrics_data, model_data],
+    allow_reuse=True)
+
+# Pipeline
+from azureml.pipeline.core import Pipeline
+pipeline = Pipeline(
+    description="pipeline_with_automlstep",
+    workspace=ws,    
+    steps=[automl_step])
+```
+After submitting the pipeline run to the experiment, results metrics have been collected and the best model, ***VotingEnsemble***, has been retrieved.
+
+The pipeline has been completed in 29m 22s.
+
+![Pipeline](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline.png)
+
+![Experiment](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment.png)
+
+![Experiment Graph](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment_graph.png)
+
+![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
   
-  - **Deploy the best model**
-    The best model, the output of the above step, has been deployed to ***Azure Container Instance***, by clicking the button "Deploy" in *Model* tab under *Experiment* section.       *Enable authentication* has been enabled.
+- **Deploy the best model**
+The best model, the output of the above step, has been deployed to ***Azure Container Instance***, by clicking the button "Deploy" in *Model* tab under *Experiment* section. *Enable authentication* has been enabled.
     
-    ![Model Deploy](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy.png)
+![Model Deploy](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy.png)
     
-    ![Model Deploy Running](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_running.png)
+![Model Deploy Running](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_running.png)
     
-    ![Model Deploy Completed](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_completed.png)
+![Model Deploy Completed](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_completed.png)
     
     
-  - **Enable logging**
-    Once the model has been deployed ("Deployment state" has become *Healthy*), a REST endpoint and a Swagger URI have been generated.
+- **Enable logging**
+Once the model has been deployed ("Deployment state" has become *Healthy*), a REST endpoint and a Swagger URI have been generated.
     
-    ![Model Deploy Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_endpoint.png)
+![Model Deploy Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_endpoint.png)
     
-    ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script
-    [logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py).
+***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script
+[logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py).
     
-    The script has been modifyied in order to correctly enable ***Application Insights***.
+The script has been modifyied in order to correctly enable ***Application Insights***.
     
-    Moreover, [config.json](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/config.json) file, containing workspace info, has been retrieved from         Azure ML Studio and placed in the same directory of the above script, before running it.
+Moreover, [config.json](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/config.json) file, containing workspace info, has been retrieved from Azure ML Studio and placed in the same directory of the above script, before running it.
     
-    ```
-    from azureml.core import Workspace
-    from azureml.core.webservice import Webservice
+```python
+from azureml.core import Workspace
+from azureml.core.webservice import Webservice
 
-    # Requires the config to be downloaded first to the current working directory
-    ws = Workspace.from_config()
+# Requires the config to be downloaded first to the current working directory
+ws = Workspace.from_config()
 
-    # Set with the deployment name
-    name = "model-deploy"
+# Set with the deployment name
+name = "model-deploy"
 
-    # Load existing web service
-    service = Webservice(name=name, workspace=ws)
-    
-    # Enable Application Insights
-    service.update(enable_app_insights=True)
-    
-    logs = service.get_logs()
+# Load existing web service
+service = Webservice(name=name, workspace=ws)
 
-    for line in logs.split('\n'):
-        print(line)
-    ```
-    When the execution has been completed, ***Application Insights*** has been set to true:
+# Enable Application Insights
+service.update(enable_app_insights=True)
+
+logs = service.get_logs()
+
+for line in logs.split('\n'):
+    print(line)
+```
+When the execution has been completed, ***Application Insights*** has been set to true:
     
-    ![Logs Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/logs_terminal.png)
+![Logs Terminal](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/logs_terminal.png)
     
-    ![Application Insights](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights.png)
+![Application Insights](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights.png)
     
-    ![Application Insights Monitor](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights_monitor.png)
+![Application Insights Monitor](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/application_insights_monitor.png)
   
  - **Consume model endpoints**
 
