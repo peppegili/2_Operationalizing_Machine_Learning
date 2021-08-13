@@ -137,9 +137,7 @@ The following diagram shows all the steps of the entire process:
     ***Application Insights enabled*** is false. So it has been enabled in order to retrieve logs, using the provided script:
     [logs.py](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/logs.py).
     
-    The script has been modifyied in order to correctly enable ***Application Insights***:
-    
-    Photo
+    The script has been modifyied in order to correctly enable ***Application Insights***.
     
     [config.json](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/config.json) file, containing workspace info, has been retrieved and placed in the       same directory of the above script, before running it.
     
@@ -151,10 +149,14 @@ The following diagram shows all the steps of the entire process:
     ws = Workspace.from_config()
 
     # Set with the deployment name
-    name = ""
+    name = "model-deploy"
 
     # Load existing web service
     service = Webservice(name=name, workspace=ws)
+    
+    # Enable Application Insights
+    service.update(enable_app_insights=True)
+    
     logs = service.get_logs()
 
     for line in logs.split('\n'):
