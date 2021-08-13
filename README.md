@@ -298,6 +298,11 @@ The following diagram shows all the steps of the entire process:
 
     published_pipeline
     ```
+    
+    ![Pipeline Endpoint](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint.png)
+    ![Pipeline Endpoint 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_2.png)
+    ![Pipeline Endpoint 3](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/pipeline_endpoint_3.png)
+    
     The following code has been used to send a POST request to the endpoint. The endpoint is the URI that the SDK will use to communicate with it over HTTP:
     ```
     import requests
