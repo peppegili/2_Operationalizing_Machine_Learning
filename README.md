@@ -115,7 +115,7 @@ The following diagram shows all the steps of the entire process:
         
         ![Experiment](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment.png)
         
-        ![Models](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/models.png)
+        ![Experiment Graph](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/experiment_graph.png)
         
         ![Best model](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/best_model.png)
   
