@@ -13,7 +13,6 @@ The [aml-pipelines-with-automated-machine-learning-step.ipynb](https://github.co
   - [Architectural Diagram](#architectural-diagram)
   - [Key Steps](#key-steps)
   - [Screen Recording](#screen-recording)
-  - [Standout Suggestions](#standout-suggestions)
 
 ## Dataset
 In this project a bank marketing [dataset](https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv) is used.
@@ -320,6 +319,3 @@ The following diagram shows all the steps of the entire process:
   
 ## Screen Recording
 Link to a screen recording of the project in action
-
-## Standout Suggestions
-*TODO (Optional):* This is where you can provide information about any standout suggestions that you have attempted.
