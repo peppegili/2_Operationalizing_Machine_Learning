@@ -183,6 +183,10 @@ The following diagram shows all the steps of the entire process:
         Then, *serve.py* and *swagger.sh* have been executed in order to start a python server on port 8000 and download the latest Swagger container and run it on port 9000,             respectively. The documentation for the HTTP API of the model is shown below:
         
         ![Swagger](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger.png)
+        
+        ![Swagger Post](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post.png)
+        
+        ![Swagger Post 2](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/swagger_post_2.png)
        
         
       - ***Consume deployed services***: a deployed service can be consumed via an HTTP API. Users can initiate HTTP requestes, for example an input request, usually via an HTTP           POST request. HTTP POST is a request method that is used to submit data. The HTTP GET is another commonly used request method. HTTP GET is used to retrieve information             from a URL. The allowed requests methods and the different URLs exposed by Azure create a bi-directional flow of information.
