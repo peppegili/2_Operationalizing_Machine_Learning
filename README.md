@@ -123,6 +123,10 @@ The following diagram shows all the steps of the entire process:
     The best model, the output of the above step, has been deployed to ***Azure Container Instance***, by clicking the button "Deploy" in *Model* tab under *Experiment* section.       *Enable authentication* has been enabled.
     
     ![Model Deploy](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy.png)
+    
+    ![Model Deploy Running](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_running.png)
+    
+    ![Model Deploy Completed](https://github.com/peppegili/2_Operationalizing_Machine_Learning/blob/master/img/model_deploy_completed.png)
 
   - **Enable logging**
     After the model has been deployed, a REST endpoint and a Swagger URI have been generated.
